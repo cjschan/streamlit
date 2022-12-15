@@ -21,11 +21,6 @@ st.markdown(hide, unsafe_allow_html=True)
 
 geyser = pd.read_csv("oldfaithful.csv")
 
-
-#Logistic regression predicting diagnosis from tumor radius
-logisticModel = LogisticRegression()
-logisticModel.fit(X,np.ravel(y.astype(int)))
-
 col1, col2 = st.columns([1,3])
 
 with col1:
