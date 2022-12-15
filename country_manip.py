@@ -58,6 +58,5 @@ def aggrid_interactive_table(df: pd.DataFrame):
 country = pd.read_csv(
     "country_complete.csv"
 )
-country=country[["Country","Continent","Years","Fertility","Emissions","Internet"]]
 
 selection = aggrid_interactive_table(df=country)
