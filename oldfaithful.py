@@ -29,16 +29,6 @@ with col1:
     kmModel = kmModel.fit(geyser)
     centroids = kmModel.cluster_centers_
     clusters = kmModel.fit_predict(geyser[['Eruption', 'Waiting']])
-    # yPredictedProb = logisticModel.predict_proba(X)[:,1]
-    # yPredLowCutoff = []
-    # for i in range(0,yPredictedProb.size):
-    #     if yPredictedProb[i] < cutoff:
-    #         yPredLowCutoff.append(0)
-    #     else:
-    #         yPredLowCutoff.append(1)
-    # st.write("Accuracy: " + str(round(metrics.accuracy_score(y,yPredLowCutoff),2)))
-    # st.write("Precision: " + str(round(metrics.precision_score(y,yPredLowCutoff),2)))
-    # st.write("Recall: " + str(round(metrics.recall_score(y,yPredLowCutoff),2)))
 
 with col2:
     p = sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, style=clusters)
