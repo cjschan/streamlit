@@ -49,6 +49,12 @@ with col2:
     if clust_num==1:
         desc2 = "with " + str(clust_num) + " cluster is shown. The centroid is located at " + str(cent_pts[0]) + ". "
     if clust_num==2:
-        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at " + str(cent_pts[0]) + " and " + str(cent_pts[1]) + ". "
+        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at " + str(cent_pts[0]) + " and " + str(cent_pts[1]) + "."
+    if clust_num==3:
+        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at " + str(cent_pts[0]) + ", " + str(cent_pts[1]) + ", and " + str(cent_pts[2]) + "."
+    if clust_num==4:
+        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at " + str(cent_pts[0]) + ", " + str(cent_pts[1]) + ", " + str(cent_pts[2]) + ", and " + str(cent_pts[3])+ "."
+    if clust_num==5:
+        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at " + str(cent_pts[0]) + ", " + str(cent_pts[1]) + ", " + str(cent_pts[2]) + ", " + str(cent_pts[3])+ ", and " + str(cent_pts[4])+ "."
     desc = desc1 + desc2
     st.write(desc)
