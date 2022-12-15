@@ -21,7 +21,7 @@ geyser = pd.read_csv("oldfaithful.csv")
 col1, col2 = st.columns([1,3])
 
 with col1:
-    clust_num = st.slider('Clusters', 1, 272)
+    clust_num = st.slider('Clusters', 1, 10)
     kmModel = KMeans(n_clusters = clust_num)
     kmModel = kmModel.fit(geyser)
     centroids = kmModel.cluster_centers_
