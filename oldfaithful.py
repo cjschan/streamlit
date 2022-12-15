@@ -43,7 +43,5 @@ with col2:
     plt.scatter(x=x_cent, y=y_cent, c="black", marker="X", s=120)
     st.pyplot(fig)
     desc1 = "Description: A scatter plot of the Old Faithful eruption data"
-    desc2 = "with " + str(clust_num) + " clusters. The within-cluster sum of "
-    desc3 = "squares is equal to " + str(int(kmModel.inertia_)) + "."
-    desc = desc1 + desc2 + desc3 + desc4
-    st.write(desc)
+    
+    st.write(desc1)
