@@ -30,7 +30,7 @@ with col1:
 
 with col2:
     fig, ax = plt.subplots()
-    sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, style=clusters, s=80)
+    sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, s=80)
     ax.get_legend().remove()
     ax.set_xlabel('Eruption time (min)', fontsize=14)
     ax.set_ylabel('Waiting time (min)', fontsize=14)
@@ -39,5 +39,5 @@ with col2:
     for i in centroids:
         x_cent.append(i[0])
         y_cent.append(i[1])
-    plt.scatter(x=x_cent, y=y_cent, c='black', s=100)
+    plt.scatter(x=x_cent, y=y_cent, c='black', style='x', s=100)
     st.pyplot(fig)
