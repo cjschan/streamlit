@@ -25,7 +25,7 @@ col1, col2 = st.columns([1,3])
 
 with col1:
     clust_num = st.slider('Clusters', 1, 272)
-    kmModel = KMeans(n_clusters = int(clust_num))
+    kmModel = KMeans(n_clusters = 2)
     kmModel = kmModel.fit(geyser)
     centroids = kmModel.cluster_centers_
     clusters = kmModel.fit_predict(geyser[['Eruption', 'Waiting']])
