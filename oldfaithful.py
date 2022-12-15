@@ -28,7 +28,8 @@ with col1:
     clusters = kmModel.fit_predict(geyser[['Eruption', 'Waiting']])
 
 with col2:
-    p = sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, style=clusters)
-    p.set_xlabel('Eruption time (min)', fontsize=14)
-    p.set_ylabel('Waiting time (min)', fontsize=14)
+    fig, ax = plt.subplots()
+    sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, style=clusters)
+    ax.set_xlabel('Eruption time (min)', fontsize=14)
+    ax.set_ylabel('Waiting time (min)', fontsize=14)
     st.pyplot(fig)
