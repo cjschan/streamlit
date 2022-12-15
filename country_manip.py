@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-from st_aggrid import AgGrid, GridOptionsBuilder
+from st_aggrid import AgGrid, GridOptionsBuilder, GridOptionsBuilder, ColumnsAutoSizeMode
 from st_aggrid.shared import GridUpdateMode
 
 st.set_page_config(
@@ -59,4 +59,4 @@ country = pd.read_csv(
 )
 country=country[["Country","Continent","Years","Fertility","Emissions","Internet"]]
 
-selection = aggrid_interactive_table(df=country)
+selection = aggrid_interactive_table(df=country,columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
