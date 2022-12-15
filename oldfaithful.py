@@ -34,5 +34,10 @@ with col2:
     ax.get_legend().remove()
     ax.set_xlabel('Eruption time (min)', fontsize=14)
     ax.set_ylabel('Waiting time (min)', fontsize=14)
-    # plt.scatter(x=centroids[1,0], y=centroids[1,1], c='black', s=100)
+    x_cent = []
+    y_cent = []
+    for i in centroids:
+        x_cent.append(i[0])
+        y_cent.append(i[1])
+    plt.scatter(x=x_cent, y=y_cent, c='black', s=100)
     st.pyplot(fig)
