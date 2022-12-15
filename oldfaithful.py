@@ -39,5 +39,5 @@ with col2:
     for i in centroids:
         x_cent.append(i[0])
         y_cent.append(i[1])
-    plt.scatter(x=x_cent, y=y_cent, c='black', marker="*", s=100)
+    plt.scatter(x=x_cent, y=y_cent, c='yellow', marker="*", s=100)
     st.pyplot(fig)
