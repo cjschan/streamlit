@@ -30,8 +30,8 @@ with col1:
 
 with col2:
     fig, ax = plt.subplots()
-    sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, s=80)
     sns.color_palette("viridis", as_cmap=True)
+    sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, s=80)
     ax.get_legend().remove()
     ax.set_xlabel('Eruption time (min)', fontsize=14)
     ax.set_ylabel('Waiting time (min)', fontsize=14)
