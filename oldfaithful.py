@@ -42,11 +42,14 @@ with col2:
         y_cent.append(i[1])
     plt.scatter(x=x_cent, y=y_cent, c="black", marker="X", s=120)
     st.pyplot(fig)
+
+    cent_pts = []
+    for i in centroids: cent_pts.append((np.round(i[0],2),np.round(i[1],2)))
     desc1 = "Description: A scatter plot of the Old Faithful eruption data "
     if clust_num==1:
-        desc2 = "with " + str(clust_num) + " cluster. The within-cluster sum of "
-    else:
-        desc2 = "with " + str(clust_num) + " clusters. The within-cluster sum of "
-    desc3 = "squares is equal to " + str(int(kmModel.inertia_)) + "."
+        desc2 = "with " + str(clust_num) + " cluster is shown. The centroid is located at " + str(cent_pts[0]) + "."
+    if clust_num==2:
+        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at" + str(cent_pts[0]) + "and " str(cent_pts[1]) + "."
+    desc3 = "The within-cluster sum of squares (WCSS) is equal to " + str(int(kmModel.inertia_)) + "."
     desc = desc1 + desc2 + desc3
     st.write(desc)
