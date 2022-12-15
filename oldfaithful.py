@@ -42,7 +42,7 @@ with col2:
         y_cent.append(i[1])
     plt.scatter(x=x_cent, y=y_cent, c="black", marker="X", s=120)
     st.pyplot(fig)
-    desc1 = "Description: A scatter plot of the Old Faithful eruption data"
+    desc1 = "Description: A scatter plot of the Old Faithful eruption data "
     if clust_num==1:
         desc2 = "with " + str(clust_num) + " cluster. The within-cluster sum of "
     else:
