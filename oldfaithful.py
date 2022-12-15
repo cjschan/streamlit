@@ -21,7 +21,7 @@ geyser = pd.read_csv("oldfaithful.csv")
 col1, col2 = st.columns([1,3])
 
 with col1:
-    clust_num = st.slider('Clusters', 1, 10)
+    clust_num = st.slider('Clusters', 1, 8)
     kmModel = KMeans(n_clusters = clust_num)
     kmModel = kmModel.fit(geyser)
     centroids = kmModel.cluster_centers_
@@ -30,7 +30,6 @@ with col1:
 with col2:
     fig, ax = plt.subplots()
     sns.scatterplot(data=geyser, x='Eruption', y='Waiting', hue=clusters, style=clusters)
-    ax.get_legend().remove()
     ax.set_xlabel('Eruption time (min)', fontsize=14)
     ax.set_ylabel('Waiting time (min)', fontsize=14)
     st.pyplot(fig)
