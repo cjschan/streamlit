@@ -49,6 +49,7 @@ def aggrid_interactive_table(df: pd.DataFrame):
         gridOptions=options.build(),
         theme="alpine",
         update_mode=GridUpdateMode.MODEL_CHANGED,
+        columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS
     )
 
     return selection
@@ -59,4 +60,4 @@ country = pd.read_csv(
 )
 country=country[["Country","Continent","Years","Fertility","Emissions","Internet"]]
 
-selection = aggrid_interactive_table(df=country,columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
+selection = aggrid_interactive_table(df=country)
