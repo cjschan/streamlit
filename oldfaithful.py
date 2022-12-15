@@ -26,6 +26,7 @@ with col1:
     kmModel = kmModel.fit(geyser)
     centroids = kmModel.cluster_centers_
     clusters = kmModel.fit_predict(geyser[['Eruption', 'Waiting']])
+    st.write("WCSS = " + str(kmModel.inertia_))
 
 with col2:
     fig, ax = plt.subplots()
@@ -33,4 +34,5 @@ with col2:
     ax.get_legend().remove()
     ax.set_xlabel('Eruption time (min)', fontsize=14)
     ax.set_ylabel('Waiting time (min)', fontsize=14)
+    plt.scatter(x=centroids[1,0], y=centroids[1,1], c='black', marker='X', s=100)
     st.pyplot(fig)
