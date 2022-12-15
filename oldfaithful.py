@@ -27,7 +27,6 @@ with col1:
     kmModel = kmModel.fit(geyser)
     centroids = kmModel.cluster_centers_
     clusters = kmModel.fit_predict(geyser[['Eruption', 'Waiting']])
-    st.write("WCSS = " + str(int(kmModel.inertia_)))
 
 with col2:
     fig, ax = plt.subplots()
@@ -50,6 +49,6 @@ with col2:
     if clust_num==1:
         desc2 = "with " + str(clust_num) + " cluster is shown. The centroid is located at " + str(cent_pts[0]) + ". "
     if clust_num==2:
-        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at " + str(cent_pts[0]) + "and " + str(cent_pts[1]) + ". "
+        desc2 = "with " + str(clust_num) + " clusters are shown. The centroids are located at " + str(cent_pts[0]) + " and " + str(cent_pts[1]) + ". "
     desc = desc1 + desc2
     st.write(desc)
