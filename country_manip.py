@@ -39,7 +39,6 @@ def aggrid_interactive_table(df: pd.DataFrame):
         df, enableRowGroup=True, enableValue=True, enablePivot=True
     )
 
-    options.configure_columns(["Years","Fertility","Emissiosn","Internet"], precision=1)
     options.configure_side_bar()
 
     options.configure_selection("single")
