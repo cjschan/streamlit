@@ -24,8 +24,8 @@ st.write(question)
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    date_1 = st.date_input("Date", key="7", value="Enter date", format="MM/DD/YYYY",label_visibility="visible")
-    date_2 = st.date_input("Date", key="8", value="Enter date", format="MM/DD/YYYY",label_visibility="collapsed")
+    date_1 = st.date_input("Date", key="7", format="MM/DD/YYYY",label_visibility="visible")
+    date_2 = st.date_input("Date", key="8", format="MM/DD/YYYY",label_visibility="collapsed")
 
 with col2:
     account_1 = st.selectbox(
