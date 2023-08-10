@@ -9,7 +9,7 @@ from mitosheet.streamlit.v1 import spreadsheet
 st.set_page_config(layout="wide")
 
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([2,3])
 
 with col1:
     st.title("Data Cleaning Verification")
