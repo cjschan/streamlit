@@ -20,12 +20,12 @@ st.markdown(hide, unsafe_allow_html=True)
 
 
 
-col1, col2, col3, col4, col5 = st.columns(5)
+col1, col2, col3, col4, col5 = st.columns([3,1,1,1,1])
 
 with col1:
     question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
     st.write(question)
-    
+
 with col2:
     date_1 = st.date_input("Date", key="7", format="MM/DD/YYYY",label_visibility="visible")
     date_2 = st.date_input("Date", key="8", format="MM/DD/YYYY",label_visibility="collapsed")
