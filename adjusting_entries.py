@@ -30,8 +30,11 @@ with col1:
     st.write(question)
 
 with col2:
-    option = st.selectbox('Account',('Electricity bill','Accrued expenses'),label_visibility="hidden")
-
+    option = st.selectbox(
+        "How would you like to be contacted?",
+        ("Email", "Home phone", "Mobile phone"),
+        label_visibility="collapsed"
+    )
 with col3:
     title = st.text_input('Debit', '')
 
