@@ -35,5 +35,5 @@ with col2:
         ('Electricity bill','Accrued expenses'),key="2",label_visibility="collapsed"
         )
 with col3:
-    debit_1 = st.text_input('Debit', '')
-    debit_2 = st.text_input('Debit', '',label_visibility="collapsed")
+    debit_1 = st.text_input('Debit', '',key="3")
+    debit_2 = st.text_input('Debit', '',key="4",label_visibility="collapsed")
