@@ -19,10 +19,6 @@ st.markdown(hide, unsafe_allow_html=True)
 
 
 
-if "visibility" not in st.session_state:
-    st.session_state.visibility = "visible"
-    st.session_state.disabled = False
-
 col1, col2 = st.columns(2)
 
 with col1:
@@ -30,11 +26,7 @@ with col1:
     st.write(question)
 
 with col2:
-    debit = st.selectbox(
+    account_1 = st.selectbox(
         'Account',
         ('Electricity bill','Accrued expenses')
-        )
-    credit = st.selectbox(
-        'Account',
-        ('Electricity bill','Accrued expenses'),label_visibility="collapsed"
         )
