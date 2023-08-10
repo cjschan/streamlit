@@ -24,10 +24,10 @@ question = "BlueButton Marketing, Inc. worked in the office for the month of Sep
 
 
 
-col1, col2 = st.columns([1.5,3])
+col1, col2, col3 = st.columns([1.5,1.5,1.5])
 
 with col1:
     st.write(question)
 
 with col2:
-    st.write(question)
+    title = st.text_input('Account', '')
