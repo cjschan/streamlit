@@ -30,4 +30,9 @@ with col1:
     st.write(question)
 
 with col2:
+    option = st.selectbox(
+    'Account',
+    ('Electricity bill','Accrued expenses'))
+
+with col3:
     title = st.text_input('Account', '')
