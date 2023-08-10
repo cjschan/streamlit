@@ -17,13 +17,13 @@ hide = """
 
 st.markdown(hide, unsafe_allow_html=True)
 
-
+question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
+st.write(question)
 
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
-    st.write(question)
+
 
 with col2:
     account_1 = st.selectbox(
