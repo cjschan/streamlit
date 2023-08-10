@@ -22,3 +22,33 @@ st.markdown(hide, unsafe_allow_html=True)
 
 question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
 st.write(question)
+
+if "visibility" not in st.session_state:
+    st.session_state.visibility = "visible"
+    st.session_state.disabled = False
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.checkbox("Disable text input widget", key="disabled")
+    st.radio(
+        "Set text input label visibility 👉",
+        key="visibility",
+        options=["visible", "hidden", "collapsed"],
+    )
+    st.text_input(
+        "Placeholder for the other text input widget",
+        "This is a placeholder",
+        key="placeholder",
+    )
+
+with col2:
+    text_input = st.text_input(
+        "Enter some text 👇",
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+        placeholder=st.session_state.placeholder,
+    )
+
+    if text_input:
+        st.write("You entered: ", text_input)
