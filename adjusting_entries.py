@@ -30,3 +30,7 @@ with col2:
         'Account',
         ('Electricity bill','Accrued expenses')
         )
+    account_2 = st.selectbox(
+        'Account',
+        ('Electricity bill','Accrued expenses')
+        )
