@@ -19,7 +19,7 @@ st.markdown(hide, unsafe_allow_html=True)
 
 
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
@@ -37,3 +37,7 @@ with col2:
 with col3:
     debit_1 = st.text_input('Debit',key="3")
     debit_2 = st.text_input('Debit1',key="4",label_visibility="collapsed")
+
+with col4:
+    credit_1 = st.text_input('Credit',key="5")
+    credit_2 = st.text_input('Credit1',key="6",label_visibility="collapsed")
