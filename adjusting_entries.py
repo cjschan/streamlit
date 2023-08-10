@@ -23,8 +23,8 @@ st.write(question)
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    data_1 = st.date_input("date", key="7", format="MM/DD", label_visibility="visible")
-    data_2 = st.date_input("date", key="7", format="MM/DD", label_visibility="collapsed")
+    data_1 = st.date_input("Date", key="7", format="MM/DD/YY", label_visibility="visible")
+    data_2 = st.date_input("Date", key="7", format="MM/DD/YY", label_visibility="collapsed")
 
 with col2:
     account_1 = st.selectbox(
