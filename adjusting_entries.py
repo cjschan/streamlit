@@ -24,19 +24,24 @@ question = "BlueButton Marketing, Inc. worked in the office for the month of Sep
 
 
 
-col1, col2, col3, col4 = st.columns([1.5,1.5,1.5,1.5])
+if "visibility" not in st.session_state:
+    st.session_state.visibility = "visible"
+    st.session_state.disabled = False
+
+col1, col2 = st.columns(2)
 
 with col1:
-    st.write(question)
+    st.checkbox("Disable selectbox widget", key="disabled")
+    st.radio(
+        "Set selectbox label visibility 👉",
+        key="visibility",
+        options=["visible", "hidden", "collapsed"],
+    )
 
 with col2:
     option = st.selectbox(
         "How would you like to be contacted?",
         ("Email", "Home phone", "Mobile phone"),
-        label_visibility="collapsed"
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
     )
-with col3:
-    title = st.text_input('Debit', '')
-
-with col4:
-    title = st.text_input('Credit', '')
