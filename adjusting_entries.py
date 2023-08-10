@@ -36,3 +36,4 @@ with col2:
         )
 with col3:
     debit_1 = st.text_input('Debit', '')
+    debit_2 = st.text_input('Debit', '',label_visibility="collapsed")
