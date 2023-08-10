@@ -33,9 +33,6 @@ with col2:
     option = st.selectbox(
     'Account',
     ('Electricity bill','Accrued expenses'))
-    option = st.selectbox(
-    '',
-    ('Electricity bill','Accrued expenses'),label_visibility="hidden")
 
 with col3:
     title = st.text_input('Debit', '')
