@@ -28,5 +28,9 @@ with col1:
 with col2:
     account_1 = st.selectbox(
         'Account',
-        ('Electricity bill','Accrued expenses')
+        ('Electricity bill','Accrued expenses'),key="1"
+        )
+    account_2 = st.selectbox(
+        'Account',
+        ('Electricity bill','Accrued expenses'),key="2",label_visibility="collapsed"
         )
