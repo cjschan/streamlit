@@ -7,11 +7,12 @@ import pandas as pd
 from mitosheet.streamlit.v1 import spreadsheet
 
 st.set_page_config(layout="wide")
-st.title("Data Cleaning Verification")
+
 
 col1, col2 = st.columns(2)
 
 with col1:
+    st.title("Data Cleaning Verification")
     st.markdown("""
     This app only allows you to download data after it passes a series of data quality checks. After importing data, the app will run a series of checks against your data and prompt you with a set of data cleaning steps.
 
