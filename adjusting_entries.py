@@ -39,5 +39,5 @@ with col3:
     debit_2 = st.text_input('Debit', '',key="4",label_visibility="collapsed")
 
 with col4:
-    credit_1 = st.text_input('Debit', '',key="4")
-    credit_2 = st.text_input('Debit', '',key="5",label_visibility="collapsed")
+    credit_1 = st.text_input('Debit', '',key="5")
+    credit_2 = st.text_input('Debit', '',key="6",label_visibility="collapsed")
