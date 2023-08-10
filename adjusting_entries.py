@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import datetime
+from mitosheet.streamlit.v1 import spreadsheet
 
 hide = """
         <style>
@@ -21,25 +22,36 @@ st.markdown(hide, unsafe_allow_html=True)
 question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
 st.write(question)
 
+tab1, tab2 = st.tabs(["Adjusting entries", "Spreadsheet"])
 col1, col2, col3, col4 = st.columns(4)
 
-with col1:
-    date_1 = st.date_input("Date", key="7", format="MM/DD/YYYY",label_visibility="visible")
-    date_2 = st.date_input("Date", key="8", format="MM/DD/YYYY",label_visibility="collapsed")
+with tab1:
+    with col1:
+        date_1 = st.date_input("Date", key="7", format="MM/DD/YYYY",label_visibility="visible")
+        date_2 = st.date_input("Date", key="8", format="MM/DD/YYYY",label_visibility="collapsed")
 
-with col2:
-    account_1 = st.selectbox(
-        'Account',
-        ('Electricity bill','Accrued expenses'),key="1"
-        )
-    account_2 = st.selectbox(
-        'Account_1',
-        ('Electricity bill','Accrued expenses'),key="2",label_visibility="collapsed"
-        )
-with col3:
-    debit_1 = st.text_input('Debit',key="3")
-    debit_2 = st.text_input('Debit1',key="4",label_visibility="collapsed")
+    with col2:
+        account_1 = st.selectbox(
+            'Account',
+            ('Electricity bill','Accrued expenses'),key="1"
+            )
+        account_2 = st.selectbox(
+            'Account_1',
+            ('Electricity bill','Accrued expenses'),key="2",label_visibility="collapsed"
+            )
+    with col3:
+        debit_1 = st.text_input('Debit',key="3")
+        debit_2 = st.text_input('Debit1',key="4",label_visibility="collapsed")
 
-with col4:
-    credit_1 = st.text_input('Credit',key="5")
-    credit_2 = st.text_input('Credit1',key="6",label_visibility="collapsed")
+    with col4:
+        credit_1 = st.text_input('Credit',key="5")
+        credit_2 = st.text_input('Credit1',key="6",label_visibility="collapsed")
+
+with tab2:
+    st.set_page_config(layout="wide")
+
+    CSV_URL = 'https://raw.githubusercontent.com/plotly/datasets/master/tesla-stock-price.csv'
+    new_dfs, code = spreadsheet(CSV_URL)
+
+    st.write(new_dfs)
+    st.code(code)
