@@ -24,7 +24,7 @@ question = "BlueButton Marketing, Inc. worked in the office for the month of Sep
 
 
 
-col1, col2, col3 = st.columns([1.5,1.5,1.5])
+col1, col2, col3, col4 = st.columns([1.5,1.5,1.5,1.5])
 
 with col1:
     st.write(question)
@@ -35,4 +35,7 @@ with col2:
     ('Electricity bill','Accrued expenses'))
 
 with col3:
-    title = st.text_input('Account', '')
+    title = st.text_input('Debit', '')
+
+with col4:
+    title = st.text_input('Credit', '')
