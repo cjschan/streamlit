@@ -1,57 +1,99 @@
+"""
+This is a demo of the mitosheet library. It is a simple streamlit app that allows you to import data and clean it using mitosheet.
+"""
+
 import streamlit as st
 import pandas as pd
-import numpy as np
-import datetime
 from mitosheet.streamlit.v1 import spreadsheet
 
-hide = """
-        <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        body {overflow: hidden;}
-        div.block-container {padding-top:1rem;}
-        div.block-container {padding-bottom:1rem;}
-        thead tr th:first-child {display:none}
-        tbody th {display:none}
-        </style>
-        """
+st.set_page_config(layout="wide")
+st.title("Data Cleaning Verification")
 
-st.markdown(hide, unsafe_allow_html=True)
+st.markdown("""
+This app only allows you to download data after it passes a series of data quality checks. After importing data, the app will run a series of checks against your data and prompt you with a set of data cleaning steps.
 
-question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
-st.write(question)
+To use the app, follow the mitosheet below:
+1. Click **Import** > **Import Files** and select an XLSX file from the `data` folder.
+2. Click the **Import Button**, and configure the import to skip rows depending on the file you choose.
+3. Use the Mitosheet to clean the data according to the prompts.
+4. Once all of the checks pass, download the csv file.
 
-tab1, tab2 = st.tabs(["Adjusting entries", "Spreadsheet"])
-col1, col2, col3, col4 = st.columns(4)
+This app is meant to demo the mitosheet library. Learn more [here](https://trymito.io).
+""")
 
-with tab1:
-    with col1:
-        date_1 = st.date_input("Date", key="7", format="MM/DD/YYYY",label_visibility="visible")
-        date_2 = st.date_input("Date", key="8", format="MM/DD/YYYY",label_visibility="collapsed")
 
-    with col2:
-        account_1 = st.selectbox(
-            'Account',
-            ('Electricity bill','Accrued expenses'),key="1"
-            )
-        account_2 = st.selectbox(
-            'Account_1',
-            ('Electricity bill','Accrued expenses'),key="2",label_visibility="collapsed"
-            )
-    with col3:
-        debit_1 = st.text_input('Debit',key="3")
-        debit_2 = st.text_input('Debit1',key="4",label_visibility="collapsed")
+CHECKS_AND_ERRORS = [
+    # First column is issue date
+    (
+        lambda df: df.columns[0] != 'issue date',
+        'Please edit the first column name to "issue date".',
+        'You can do this by double clicking on the column name.'
+    ),
+    # Correct dtype
+    (
+        lambda df: df["issue date"].dtype != "datetime64[ns]",
+        'Please change the dtype of the "issue date" column to datetime.',
+        'You can do this by clicking on the Filter icon, and then selecting "datetime" from the "dtype" dropdown.'
 
-    with col4:
-        credit_1 = st.text_input('Credit',key="5")
-        credit_2 = st.text_input('Credit1',key="6",label_visibility="collapsed")
+    ),
+    # No null values
+    (
+        lambda df: df["issue date"].isnull().sum() > 0,
+        'Please filter out all null values from the issue date column.',
+        'You can do this by clicking on the filter icon in the issue date column header, and adding an "Is Not Empty" filter.'
+    ),
+    # Delete the Notes column
+    (
+        lambda df: "Notes" in df.columns,
+        'Please delete the "Notes" column, which is the final column of the dataframe.',
+        'You can do this by selecting the column header and pressing the Delete key.'
+    ),
+    # Turn the term column into a number with the formula =VALUE(LEFT(term, 3))
+    (
+        lambda df: df["term"].dtype != "int64",
+        'Please extract the number of months from the "term" column.',
+        'To do so, double click on a cell in the column, and write the formula `=INT(LEFT(term, 3))`.'
+    ),
+]
 
-with tab2:
-    st.set_page_config(layout="wide")
+def run_data_checks_and_display_prompts(df):
+    """
+    Runs the data checks and displays prompts for the user to fix the data.
+    """
+    for check, error_message, help in CHECKS_AND_ERRORS:
+        if check(df):
+            st.error(error_message + " " + help)
+            return False
+    return True
 
-    CSV_URL = 'https://raw.githubusercontent.com/plotly/datasets/master/tesla-stock-price.csv'
-    new_dfs, code = spreadsheet(CSV_URL)
+@st.cache_data
+def convert_df(df):
+    return df.to_csv(index=False).encode('utf-8')
 
-    st.write(new_dfs)
-    st.code(code)
+# Display the data inside of the spreadsheet so the user can easily fix data quality issues.
+dfs, _ = spreadsheet(import_folder='./data')
+
+# If the user has not yet imported data, prompt them to do so.
+if len(dfs) == 0:
+    st.info("Please import a file to begin. Click **Import** > **Import Files** and select a file from the `data` folder.")
+
+    # Don't run the rest of the app if the user hasn't imported data.
+    st.stop()
+
+# Run the checks on the data and display prompts
+df = list(dfs.values())[0]
+checks_passed = run_data_checks_and_display_prompts(df)
+
+# If the data passes all checks, allow the user to download the data
+if checks_passed:
+    st.success("All checks passed! This data is clean, and ready to be downloaded.")
+
+    csv = convert_df(df)
+
+    st.download_button(
+        "Press to Download",
+        csv,
+        "mito_verified_data.csv",
+        "text/csv",
+        key='download-csv'
+    )
