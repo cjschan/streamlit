@@ -19,7 +19,7 @@ st.markdown(hide, unsafe_allow_html=True)
 
 
 
-col1, col2 = st.columns(2)
+col1, col2,col3 = st.columns(3)
 
 with col1:
     question = "BlueButton Marketing, Inc. worked in the office for the month of September. The amount of electricity the company used equaled $12,000 for the month. On October 1, the business received the bill and wrote a check to the electric company on October 2."
@@ -30,6 +30,7 @@ with col2:
         'Account',
         ('Electricity bill','Accrued expenses')
         )
+with col3:
     account_2 = st.selectbox(
         'Account',
         ('Electricity bill','Accrued expenses')
