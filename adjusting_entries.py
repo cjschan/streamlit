@@ -46,3 +46,5 @@ with col4:
 with col5:
     credit_1 = st.text_input('Credit',key="5")
     credit_2 = st.text_input('Credit1',key="6",label_visibility="collapsed")
+
+st.write("Notes: Autocomplete account names to be added")
