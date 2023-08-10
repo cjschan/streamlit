@@ -21,8 +21,6 @@ with col1:
     2. Click the **Import Button**, and configure the import to skip rows depending on the file you choose.
     3. Use the Mitosheet to clean the data according to the prompts.
     4. Once all of the checks pass, download the csv file.
-
-    This app is meant to demo the mitosheet library. Learn more [here](https://trymito.io).
     """)
 
 
