@@ -25,8 +25,8 @@ This app is meant to demo the mitosheet library. Learn more [here](https://trymi
 CHECKS_AND_ERRORS = [
     # First column is issue date
     (
-        lambda df: df.columns[0] != 'gender',
-        'Please edit the first column name to "gender".',
+        lambda df: df.columns[0] != 'issue date',
+        'Please edit the first column name to "issue date".',
         'You can do this by double clicking on the column name.'
     ),
     # Correct dtype
