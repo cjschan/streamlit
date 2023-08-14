@@ -12,15 +12,14 @@ st.set_page_config(layout="wide")
 col1, col2 = st.columns([2,3])
 
 with col1:
-    st.title("Data Cleaning Verification")
+    st.title("Adjusting Entries")
     st.markdown("""
-    This app only allows you to download data after it passes a series of data quality checks. After importing data, the app will run a series of checks against your data and prompt you with a set of data cleaning steps.
+    This activity walks you through the steps of adjusting entries.
 
-    To use the app, follow the mitosheet below:
+    To start the activity:
     1. Click **Import** > **Import Files** and select an XLSX file from the `data` folder.
     2. Click the **Import Button**, and configure the import to skip rows depending on the file you choose.
-    3. Use the Mitosheet to clean the data according to the prompts.
-    4. Once all of the checks pass, download the csv file.
+    3. Enter data into the spreadsheet according to the prompts.
     """)
 
 
