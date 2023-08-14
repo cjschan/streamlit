@@ -36,7 +36,7 @@ CHECKS_AND_ERRORS = [
     (
         lambda df: df.iloc[0,1] != 800,
         'Enter the amount for the adjusted entry being debited in Cell B2.',
-        'You can do this by clicking the cell under Account name. Type =, then the amount and make sure that Edit entire column is set to Off.'
+        'You can do this by clicking the cell under Debit. Type =, then the amount and make sure that Edit entire column is set to Off.'
     ),
 
     (
