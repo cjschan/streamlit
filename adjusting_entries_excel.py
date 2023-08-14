@@ -31,6 +31,12 @@ CHECKS_AND_ERRORS = [
         lambda df: df.iloc[0,0] != 'Salaries and Wages Expense',
         'Enter the account name for the adjusted entry being debited in Cell A2.',
         'You can do this by clicking the cell under Account name. Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
+    ),
+
+    (
+        lambda df: df.iloc[1,0] != 'Salaries and Wages Payable',
+        'Enter the account name for the adjusted entry being debited in Cell A3.',
+        'You can do this by clicking the cell under Account name. Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
     )
 ]
 
@@ -66,13 +72,3 @@ with col2:
     # If the data passes all checks, allow the user to download the data
     if checks_passed:
         st.success("That is the correct account!")
-
-        csv = convert_df(df)
-
-        st.download_button(
-            "Press to Download",
-           csv,
-            "mito_verified_data.csv",
-            "text/csv",
-            key='download-csv'
-        )
