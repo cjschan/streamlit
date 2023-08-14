@@ -92,7 +92,7 @@ with col2:
     if checks_passed:
         st.success("All checks passed! This data is clean, and ready to be downloaded.")
 
-       csv = convert_df(df)
+        csv = convert_df(df)
 
         st.download_button(
             "Press to Download",
