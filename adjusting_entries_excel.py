@@ -34,9 +34,8 @@ CHECKS_AND_ERRORS = [
     ),
     # Correct dtype
     (
-        lambda df: df["issue date"].dtype != "datetime64[ns]",
-        'Please change the dtype of the "issue date" column to datetime.',
-        'You can do this by clicking on the Filter icon, and then selecting "datetime" from the "dtype" dropdown.'
+        lambda df: df.iloc[1,0] != 'Salaries and Wages Payable',
+        'Enter the account name for the adjusted entry being credited in Cell A3.'
 
     ),
     # No null values
