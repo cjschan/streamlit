@@ -28,9 +28,9 @@ with col1:
 CHECKS_AND_ERRORS = [
     # First column is issue date
     (
-        lambda df: df.columns[0] != 'issue date',
-        'Enter the account name for the adjusted entry being debited.',
-        'You can do this by click the cell under Account name.'
+        lambda df: df.columns[0] != 'Salaries and Wages Expense',
+        'Enter the account name for the adjusted entry being debited in Cell A2.',
+        'You can do this by clicking the cell under Account name. Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
     ),
     # Correct dtype
     (
