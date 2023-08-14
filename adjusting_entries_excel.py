@@ -1,10 +1,19 @@
-"""
-This is a demo of the mitosheet library. It is a simple streamlit app that allows you to import data and clean it using mitosheet.
-"""
-
 import streamlit as st
 import pandas as pd
 from mitosheet.streamlit.v1 import spreadsheet
+
+hide = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        body {overflow: hidden;}
+        div.block-container {padding-top:1rem;}
+        div.block-container {padding-bottom:1rem;}
+        thead tr th:first-child {display:none}
+        tbody th {display:none}
+        </style>
+        """
 
 st.set_page_config(layout="wide")
 
