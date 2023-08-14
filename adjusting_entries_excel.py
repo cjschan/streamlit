@@ -19,7 +19,6 @@ with col1:
 
 
 CHECKS_AND_ERRORS = [
-    # First column is issue date
     (
         lambda df: df.iloc[0,0] != 'Salaries and Wages Expense',
         'Enter the account name for the adjusted entry being debited in Cell A2.',
