@@ -18,8 +18,6 @@ with col1:
 
     Micro Computer Services Inc. began operations on August 1, 2025. At the end of August 2025, management attempted to prepare monthly financial statements. The following information relates to August.
     1. At August 31, the company owed its employees $800 in salaries that will be paid on September 1.
-    2. On August 1, the company borrowed $30,000 from a local bank on a 1-year note payable. The annual interest rate is 10%. Interest will be paid with the note at maturity.
-    3. Revenue for services performed but unrecorded for August totaled $1,100.
 
     Prepare the adjusting entries needed at August 31, 2025.
     """)
