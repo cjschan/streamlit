@@ -15,6 +15,7 @@ hide = """
         </style>
         """
 
+st.markdown(hide, unsafe_allow_html=True)
 st.set_page_config(layout="wide")
 
 
