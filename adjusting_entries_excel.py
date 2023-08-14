@@ -2,22 +2,7 @@ import streamlit as st
 import pandas as pd
 from mitosheet.streamlit.v1 import spreadsheet
 
-hide = """
-        <style>
-        #MainMenu {visibility: hidden;}
-        footer {visibility: hidden;}
-        header {visibility: hidden;}
-        body {overflow: hidden;}
-        div.block-container {padding-top:1rem;}
-        div.block-container {padding-bottom:1rem;}
-        thead tr th:first-child {display:none}
-        tbody th {display:none}
-        </style>
-        """
-
-st.markdown(hide, unsafe_allow_html=True)
 st.set_page_config(layout="wide")
-
 
 col1, col2 = st.columns([2,3])
 
