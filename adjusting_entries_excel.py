@@ -48,7 +48,7 @@ CHECKS_AND_ERRORS = [
     (
         lambda df: df.iloc[1,1] != 800,
         'Enter the amount for the adjusted entry being credited in Cell C3.',
-        'Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
+        'Make sure that Edit entire column is set to Off.'
     )
 ]
 
