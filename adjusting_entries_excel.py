@@ -65,7 +65,7 @@ with col2:
 
     # If the data passes all checks, allow the user to download the data
     if checks_passed:
-        st.success("All checks passed! This data is clean, and ready to be downloaded.")
+        st.success("That is the correct account!")
 
         csv = convert_df(df)
 
