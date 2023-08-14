@@ -12,14 +12,16 @@ st.set_page_config(layout="wide")
 col1, col2 = st.columns([2,3])
 
 with col1:
-    st.title("Adjusting Entries")
+    st.title("Adjusting Entries for Accruals")
     st.markdown("""
-    This activity walks you through the steps of adjusting entries.
+    This activity walks you through the steps of adjusting entries for accruals. To start the activity, click **Import** > **Import Files** and select journal.xlsx file from the `data` folder. Then, click the **Import Button**, and configure the import to skip rows depending on the file you choose.
 
-    To start the activity:
-    1. Click **Import** > **Import Files** and select an XLSX file from the `data` folder.
-    2. Click the **Import Button**, and configure the import to skip rows depending on the file you choose.
-    3. Enter data into the spreadsheet according to the prompts.
+    Micro Computer Services Inc. began operations on August 1, 2025. At the end of August 2025, management attempted to prepare monthly financial statements. The following information relates to August.
+    1. At August 31, the company owed its employees $800 in salaries that will be paid on September 1.
+    2. On August 1, the company borrowed $30,000 from a local bank on a 1-year note payable. The annual interest rate is 10%. Interest will be paid with the note at maturity.
+    3. Revenue for services performed but unrecorded for August totaled $1,100.
+
+    Prepare the adjusting entries needed at August 31, 2025.
     """)
 
 
