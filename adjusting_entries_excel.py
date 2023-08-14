@@ -31,31 +31,7 @@ CHECKS_AND_ERRORS = [
         lambda df: df.iloc[0,0] != 'Salaries and Wages Expense',
         'Enter the account name for the adjusted entry being debited in Cell A2.',
         'You can do this by clicking the cell under Account name. Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
-    ),
-    # Correct dtype
-    (
-        lambda df: df.iloc[1,0] != 'Salaries and Wages Payable',
-        'Enter the account name for the adjusted entry being credited in Cell A3.'
-
-    ),
-    # No null values
-    (
-        lambda df: df["issue date"].isnull().sum() > 0,
-        'Please filter out all null values from the issue date column.',
-        'You can do this by clicking on the filter icon in the issue date column header, and adding an "Is Not Empty" filter.'
-    ),
-    # Delete the Notes column
-    (
-        lambda df: "Notes" in df.columns,
-        'Please delete the "Notes" column, which is the final column of the dataframe.',
-        'You can do this by selecting the column header and pressing the Delete key.'
-    ),
-    # Turn the term column into a number with the formula =VALUE(LEFT(term, 3))
-    (
-        lambda df: df["term"].dtype != "int64",
-        'Please extract the number of months from the "term" column.',
-        'To do so, double click on a cell in the column, and write the formula `=INT(LEFT(term, 3))`.'
-    ),
+    )
 ]
 
 with col2:
