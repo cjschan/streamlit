@@ -41,8 +41,14 @@ CHECKS_AND_ERRORS = [
 
     (
         lambda df: df.iloc[1,0] != 'Salaries and Wages Payable',
-        'Enter the account name for the adjusted entry being debited in Cell A3.',
-        'You can do this by clicking the cell under Account name. Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
+        'Enter the account name for the adjusted entry being credited in Cell A3.',
+        'Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
+    ),
+
+    (
+        lambda df: df.iloc[1,1] != 800,
+        'Enter the amount for the adjusted entry being credited in Cell C3.',
+        'Enclose the account name in double quotations and make sure that Edit entire column is set to Off.'
     )
 ]
 
@@ -77,4 +83,4 @@ with col2:
 
     # If the data passes all checks, allow the user to download the data
     if checks_passed:
-        st.success("That is the correct account!")
+        st.success("These are the correct adjusting entries!")
