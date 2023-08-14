@@ -85,19 +85,19 @@ with col2:
         st.stop()
 
     # Run the checks on the data and display prompts
-#    df = list(dfs.values())[0]
-#    checks_passed = run_data_checks_and_display_prompts(df)
+    df = list(dfs.values())[0]
+    checks_passed = run_data_checks_and_display_prompts(df)
 
     # If the data passes all checks, allow the user to download the data
-#    if checks_passed:
-#        st.success("All checks passed! This data is clean, and ready to be downloaded.")
+    if checks_passed:
+        st.success("All checks passed! This data is clean, and ready to be downloaded.")
 
-#        csv = convert_df(df)
+       csv = convert_df(df)
 
-#        st.download_button(
-#            "Press to Download",
-#            csv,
-#            "mito_verified_data.csv",
-#            "text/csv",
-#            key='download-csv'
-#        )
+        st.download_button(
+            "Press to Download",
+           csv,
+            "mito_verified_data.csv",
+            "text/csv",
+            key='download-csv'
+        )
