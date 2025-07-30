@@ -24,16 +24,15 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     x_vals = np.linspace(a - 5, a + 5, 1000)
     y_vals = func(x_vals)
 
-    # Secant line (infinite)
     x1, x2 = a, a + h
     y1 = safe_eval_function(func_str, x1)
     y2 = safe_eval_function(func_str, x2)
+
     sec_slope = None
     if y1 is not None and y2 is not None and h != 0:
         sec_slope = (y2 - y1) / h
         y_sec = y1 + sec_slope * (x_vals - a)
 
-    # Tangent line (infinite)
     tan_slope = None
     if y1 is not None:
         der = expr.diff(x)
@@ -42,7 +41,6 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
         if show_tangent:
             y_tan = y1 + tan_slope * (x_vals - a)
 
-    # Dynamic y-limits
     all_y = [y_vals]
     if sec_slope is not None:
         all_y.append(y_sec)
@@ -62,7 +60,6 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     if tan_slope is not None and show_tangent:
         ax.plot(x_vals, y_tan, linewidth=2, color='green')
 
-    # Center axes
     ax.spines['left'].set_position('zero')
     ax.spines['bottom'].set_position('zero')
     ax.spines['right'].set_color('none')
@@ -124,27 +121,40 @@ with col1:
     st.pyplot(fig)
 
 with col2:
-    # compute values
+    st.subheader("Current Values")
+    st.write(f"Function: f(x) = {selected}")
+    st.write(f"Point a: {a_val}")
+    st.write(f"Value h: {h_val}")
     y1 = safe_eval_function(func_input, a_val)
     y2 = safe_eval_function(func_input, a_val + h_val)
-    # secant slope
+
     if y1 is not None and y2 is not None and h_val != 0:
-        sec_slope = (y2 - y1) / h_val
-        # show secant calculation
+        sec = (y2 - y1) / h_val
+        st.write(f"Secant slope: {sec:.6f}")
+
+    if y1 is not None:
+        der = sympify(func_input).diff(symbols('x'))
+        der_func = lambdify(symbols('x'), der, 'numpy')
+        ts = der_func(a_val)
+        st.write(f"Tangent slope: {ts:.6f}")
+
+    # vertical spacing before detailed calculations
+    st.write("")
+    st.write("")
+
+    # detailed secant calculation
+    if y1 is not None and y2 is not None and h_val != 0:
         st.latex(
             rf"""\frac{{f(a+h) - f(a)}}{{h}}
 = \frac{{f({a_val:.2f}+{h_val:.2f}) - f({a_val:.2f})}}{{{h_val:.2f}}}
 = \frac{{{y2:.4f} - {y1:.4f}}}{{{h_val:.2f}}}
-= {sec_slope:.4f}"""
+= {sec:.4f}"""
         )
-    # tangent slope
+
+    # detailed tangent calculation
     if y1 is not None:
-        der = sympify(func_input).diff(symbols('x'))
-        der_func = lambdify(symbols('x'), der, 'numpy')
-        tan_slope = der_func(a_val)
-        # show tangent calculation
         st.latex(
             rf"""\lim_{{h \to 0}} \frac{{f(a+h) - f(a)}}{{h}}
 = f'({a_val:.2f})
-= {tan_slope:.4f}"""
+= {ts:.4f}"""
         )
