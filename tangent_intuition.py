@@ -21,11 +21,9 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     expr = sympify(func_str)
     func = lambdify(x, expr, 'numpy')
 
-    # Base x-range around a
     x_vals = np.linspace(a - 5, a + 5, 1000)
     y_vals = func(x_vals)
 
-    # Secant line infinite extension
     x1, x2 = a, a + h
     y1 = safe_eval_function(func_str, x1)
     y2 = safe_eval_function(func_str, x2)
@@ -34,7 +32,6 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
         sec_slope = (y2 - y1) / h
         y_sec = y1 + sec_slope * (x_vals - a)
 
-    # Tangent line infinite extension
     tan_slope = None
     if show_tangent and y1 is not None:
         der = expr.diff(x)
@@ -42,7 +39,6 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
         tan_slope = der_func(a)
         y_tan = y1 + tan_slope * (x_vals - a)
 
-    # Determine dynamic y-limits
     all_y = [y_vals]
     if sec_slope is not None:
         all_y.append(y_sec)
@@ -58,23 +54,28 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     if sec_slope is not None:
         ax.plot(x_vals, y_sec, linestyle='--', linewidth=2, color='red')
         ax.scatter([x1, x2], [y1, y2], color='red', s=50)
-        ax.annotate(f'({x1:.2f}, {y1:.4f})',
-                    xy=(x1, y1),
-                    xytext=(10, 10),
-                    textcoords='offset points',
-                    fontsize=14,
-                    arrowprops=dict(arrowstyle='->', lw=1))
-        ax.annotate(f'({x2:.2f}, {y2:.4f})',
-                    xy=(x2, y2),
-                    xytext=(10, -20),
-                    textcoords='offset points',
-                    fontsize=14,
-                    arrowprops=dict(arrowstyle='->', lw=1))
+        ax.annotate(
+            f'({x1:.2f}, {y1:.4f})',
+            xy=(x1, y1),
+            xytext=(10, 10),
+            textcoords='offset points',
+            fontsize=14,
+            fontweight='bold',
+            bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3')
+        )
+        ax.annotate(
+            f'({x2:.2f}, {y2:.4f})',
+            xy=(x2, y2),
+            xytext=(10, -20),
+            textcoords='offset points',
+            fontsize=14,
+            fontweight='bold',
+            bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3')
+        )
 
     if tan_slope is not None:
         ax.plot(x_vals, y_tan, linewidth=2, color='green')
 
-    # Center axes
     ax.spines['left'].set_position('zero')
     ax.spines['bottom'].set_position('zero')
     ax.spines['right'].set_color('none')
