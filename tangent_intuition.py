@@ -146,32 +146,5 @@ with col2:
         tan_slope = derivative_func(a_value)
         st.write(f"**Tangent slope:** {tan_slope:.6f}")
 
-with st.expander("Available functions"):
-    st.write("""
-    The dropdown includes these pre-selected functions:
-
-    **Polynomial Functions:**
-    - x² (quadratic)
-    - x³ (cubic)
-    - x³ - 2x (cubic with linear term)
-    - x² - 4 (shifted parabola)
-    - x⁴ - x² (quartic)
-    - 2x + 1 (linear)
-
-    **Transcendental Functions:**
-    - sin(x) (sine wave)
-    - cos(x) (cosine wave)
-    - eˣ (exponential)
-    - ln(x) (natural logarithm)
-    - √x (square root)
-    - 1/x (reciprocal/hyperbola)
-
-    **Instructions:**
-    1. Select a function from the dropdown
-    2. Set the point a where the secant and tangent originate
-    3. Adjust h to observe the secant line between x = a and x = a + h
-    4. Check the box to display the tangent line at x = a
-    """)
-
 st.write("---")
 st.write("Adjust parameters to explore how the secant and tangent lines relate to the function.")
