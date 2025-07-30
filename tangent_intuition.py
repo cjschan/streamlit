@@ -154,18 +154,18 @@ st.sidebar.header("Parameters")
 
 # Function selection dropdown
 function_options = {
-    "x**2": "x²",
-    "x**3": "x³", 
-    "sin(x)": "sin(x)",
-    "cos(x)": "cos(x)",
-    "exp(x)": "eˣ",
-    "log(x)": "ln(x)",
-    "sqrt(x)": "√x",
-    "1/x": "1/x",
-    "x**3 - 2*x": "x³ - 2x",
-    "x**2 - 4": "x² - 4",
-    "2*x + 1": "2x + 1",
-    "x**4 - x**2": "x⁴ - x²"
+    "x**2": r"$x^2$",
+    "x**3": r"$x^3$",
+    "sin(x)": r"$\sin(x)$",
+    "cos(x)": r"$\cos(x)$",
+    "exp(x)": r"$e^x$",
+    "log(x)": r"$\ln(x)$",
+    "sqrt(x)": r"$\sqrt{x}$",
+    "1/x": r"$\frac{1}{x}$",
+    "x**3 - 2*x": r"$x^3 - 2x$",
+    "x**2 - 4": r"$x^2 - 4$",
+    "2*x + 1": r"$2x + 1$",
+    "x**4 - x**2": r"$x^4 - x^2$"
 }
 
 selected_display = st.sidebar.selectbox(
@@ -209,25 +209,20 @@ with col1:
 
 with col2:
     st.subheader("Current Values")
-    st.write(f"**Function:** f(x) = {selected_display}")
+    st.latex(f"f(x) = {selected_display}")
     st.write(f"**Point a:** {a_value}")
     st.write(f"**Value h:** {h_value}")
     st.write(f"**Secant from:** x = {a_value} to x = {a_value + h_value:.3f}")
-    
-    # Calculate current slope if possible
+
     try:
         y1 = safe_eval_function(func_input, a_value)
         y2 = safe_eval_function(func_input, a_value + h_value)
         if y1 is not None and y2 is not None and h_value != 0:
             slope = (y2 - y1) / h_value
             st.write(f"**Current slope:** {slope:.6f}")
-            
-            # Show derivative approximation
             st.subheader("Calculus Connection")
-            st.write(f"As h → 0, the secant line approaches the tangent line.")
-            st.write(f"This slope approximates f'({a_value}) = {slope:.6f}")
-    except:
-        st.write("**Current slope:** Unable to calculate")
+            st.write("As $h \\to 0$, the secant line approaches the tangent line.")
+            st.latex(f"f'({a_value}) \\approx {slope:.6f}")
 
 # Information section
 with st.expander("Available functions"):
