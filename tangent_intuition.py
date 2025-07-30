@@ -127,10 +127,12 @@ with col1:
     if y1 is not None and y2 is not None and h_val != 0:
         sec_slope = (y2 - y1) / h_val
         st.latex(
-            rf"""\begin{align}\frac{{f(a+h) - f(a)}}{{h}}
-& = \frac{{f({a_val:.2f}+{h_val:.2f}) - f({a_val:.2f})}}{{{h_val:.2f}}}\\
-& = \frac{{{y2:.4f} - {y1:.4f}}}{{{h_val:.2f}}}\\
-& = {sec_slope:.4f} \end{align}"""
+            rf"""\begin{{align*}}
+\frac{{f(a+h) - f(a)}}{{h}}
+&= \frac{{f({a_val:.2f}+{h_val:.2f}) - f({a_val:.2f})}}{{{h_val:.2f}}} \\[6pt]
+&= \frac{{{y2:.4f} - {y1:.4f}}}{{{h_val:.2f}}} \\[6pt]
+&= {sec_slope:.4f}
+\end{{align*}}"""
         )
 
     if y1 is not None:
@@ -138,9 +140,11 @@ with col1:
         der_func = lambdify(symbols('x'), der, 'numpy')
         tan_slope = der_func(a_val)
         st.latex(
-            rf"""\lim_{{h \to 0}} \frac{{f(a+h) - f(a)}}{{h}}
-= f'({a_val:.2f})
-= {tan_slope:.4f}"""
+            rf"""\begin{{align*}}
+\lim_{{h \to 0}} \frac{{f(a+h) - f(a)}}{{h}}
+&= f'({a_val:.2f}) \\[6pt]
+&= {tan_slope:.4f}
+\end{{align*}}"""
         )
 
 with col2:
@@ -152,6 +156,4 @@ with col2:
     if y1 is not None and y2 is not None and h_val != 0:
         st.write(f"Secant slope: {(y2 - y1)/h_val:.6f}")
     if y1 is not None:
-        der = sympify(func_input).diff(symbols('x'))
-        der_func = lambdify(symbols('x'), der, 'numpy')
         st.write(f"Tangent slope: {der_func(a_val):.6f}")
