@@ -209,20 +209,25 @@ with col1:
 
 with col2:
     st.subheader("Current Values")
-    st.latex(f"f(x) = {selected_display}")
+    st.write(f"**Function:** f(x) = {selected_display}")
     st.write(f"**Point a:** {a_value}")
     st.write(f"**Value h:** {h_value}")
     st.write(f"**Secant from:** x = {a_value} to x = {a_value + h_value:.3f}")
 
+    # Calculate current slope if possible
     try:
         y1 = safe_eval_function(func_input, a_value)
         y2 = safe_eval_function(func_input, a_value + h_value)
         if y1 is not None and y2 is not None and h_value != 0:
             slope = (y2 - y1) / h_value
             st.write(f"**Current slope:** {slope:.6f}")
+
+            # Show derivative approximation
             st.subheader("Calculus Connection")
-            st.write("As $h \\to 0$, the secant line approaches the tangent line.")
-            st.latex(f"f'({a_value}) \\approx {slope:.6f}")
+            st.write(f"As h → 0, the secant line approaches the tangent line.")
+            st.write(f"This slope approximates f'({a_value}) = {slope:.6f}")
+    except:
+        st.write("**Current slope:** Unable to calculate")
 
 # Information section
 with st.expander("Available functions"):
