@@ -145,6 +145,3 @@ with col2:
         derivative_func = lambdify(symbols('x'), derivative_expr, 'numpy')
         tan_slope = derivative_func(a_value)
         st.write(f"**Tangent slope:** {tan_slope:.6f}")
-
-st.write("---")
-st.write("Adjust parameters to explore how the secant and tangent lines relate to the function.")
