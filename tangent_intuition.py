@@ -128,9 +128,9 @@ with col1:
         sec_slope = (y2 - y1) / h_val
         st.latex(
             rf"""\begin{align}\frac{{f(a+h) - f(a)}}{{h}}
-&amp; = \frac{{f({a_val:.2f}+{h_val:.2f}) - f({a_val:.2f})}}{{{h_val:.2f}}}\\
-&amp; = \frac{{{y2:.4f} - {y1:.4f}}}{{{h_val:.2f}}}\\
-&amp; = {sec_slope:.4f} \end{align}"""
+& = \frac{{f({a_val:.2f}+{h_val:.2f}) - f({a_val:.2f})}}{{{h_val:.2f}}}\\
+& = \frac{{{y2:.4f} - {y1:.4f}}}{{{h_val:.2f}}}\\
+& = {sec_slope:.4f} \end{align}"""
         )
 
     if y1 is not None:
