@@ -21,55 +21,55 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     expr = sympify(func_str)
     func = lambdify(x, expr, 'numpy')
 
-    trig = func_str in ("sin(x)", "cos(x)")
-
-    if trig:
-        x_vals = np.linspace(-2 * np.pi, 2 * np.pi, 1000)
-        y_min_plot, y_max_plot = -1, 1
-        x_min_plot, x_max_plot = -2 * np.pi, 2 * np.pi
-    else:
-        x_vals = np.linspace(-3, 3, 1000)
-        y_min_plot, y_max_plot = -3, 3
-        x_min_plot, x_max_plot = -3, 3
-
+    # Base x-range around a
+    x_vals = np.linspace(a - 5, a + 5, 1000)
     y_vals = func(x_vals)
 
-    x1, x2 = a, a + h
-    y1 = safe_eval_function(func_str, x1)
-    y2 = safe_eval_function(func_str, x2)
-
+    # Secant line infinite extension
+    y1 = safe_eval_function(func_str, a)
+    y2 = safe_eval_function(func_str, a + h)
     sec_slope = None
     if y1 is not None and y2 is not None and h != 0:
         sec_slope = (y2 - y1) / h
-        x_sec = np.linspace(x1, x2, 100)
-        y_sec = y1 + sec_slope * (x_sec - x1)
+        y_sec = y1 + sec_slope * (x_vals - a)
 
+    # Tangent line infinite extension
     tan_slope = None
     if show_tangent and y1 is not None:
         der = expr.diff(x)
         der_func = lambdify(x, der, 'numpy')
         tan_slope = der_func(a)
-        x_tan = np.linspace(x_min_plot, x_max_plot, 100)
-        y_tan = y1 + tan_slope * (x_tan - a)
+        y_tan = y1 + tan_slope * (x_vals - a)
+
+    # Determine dynamic y-limits
+    all_y = [y_vals]
+    if sec_slope is not None:
+        all_y.append(y_sec)
+    if tan_slope is not None:
+        all_y.append(y_tan)
+    ys = np.concatenate(all_y)
+    y_min, y_max = ys.min(), ys.max()
+    y_pad = 0.05 * (y_max - y_min) if y_max > y_min else 1
 
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.lineplot(x=x_vals, y=y_vals, ax=ax, label=f'f(x) = {func_str}', lw=2)
 
     if sec_slope is not None:
-        ax.scatter([x1, x2], [y1, y2], color='red', s=50, label='Secant points')
-        ax.plot(x_sec, y_sec, linestyle='--', linewidth=2, color='red',
+        ax.plot(x_vals, y_sec, linestyle='--', linewidth=2, color='red',
                 label=f'Secant (slope={sec_slope:.4f})')
 
     if tan_slope is not None:
-        ax.plot(x_tan, y_tan, linewidth=2, color='green',
+        ax.plot(x_vals, y_tan, linewidth=2, color='green',
                 label=f'Tangent (slope={tan_slope:.4f})')
 
     if y1 is not None:
+        ax.scatter([a], [y1], color='red', s=50)
         ax.annotate(f'({a:.2f}, {y1:.4f})',
                     xy=(a, y1),
-                    xytext=(a + 0.2, y1 + 0.2),
+                    xytext=(a + 0.2, y1 + y_pad),
                     arrowprops=dict(arrowstyle='->', lw=1))
 
+    # Center axes
     ax.spines['left'].set_position('zero')
     ax.spines['bottom'].set_position('zero')
     ax.spines['right'].set_color('none')
@@ -77,11 +77,10 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
 
-    ax.set_xlim(x_min_plot, x_max_plot)
-    ax.set_ylim(y_min_plot, y_max_plot)
+    ax.set_xlim(x_vals.min(), x_vals.max())
+    ax.set_ylim(y_min - y_pad, y_max + y_pad)
     ax.grid(True, linestyle=':', color='lightgray')
     ax.legend()
-
     return fig
 
 st.title("Dynamic Secant and Tangent Line Visualizer")
