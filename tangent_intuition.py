@@ -120,41 +120,38 @@ with col1:
     fig = plot_function_with_secant_and_tangent(func_input, a_val, h_val, show_tan)
     st.pyplot(fig)
 
+    # detailed calculations below the graph
+    y1 = safe_eval_function(func_input, a_val)
+    y2 = safe_eval_function(func_input, a_val + h_val)
+
+    if y1 is not None and y2 is not None and h_val != 0:
+        sec_slope = (y2 - y1) / h_val
+        st.latex(
+            rf"""\frac{{f(a+h) - f(a)}}{{h}}
+= \frac{{f({a_val:.2f}+{h_val:.2f}) - f({a_val:.2f})}}{{{h_val:.2f}}}
+= \frac{{{y2:.4f} - {y1:.4f}}}{{{h_val:.2f}}}
+= {sec_slope:.4f}"""
+        )
+
+    if y1 is not None:
+        der = sympify(func_input).diff(symbols('x'))
+        der_func = lambdify(symbols('x'), der, 'numpy')
+        tan_slope = der_func(a_val)
+        st.latex(
+            rf"""\lim_{{h \to 0}} \frac{{f(a+h) - f(a)}}{{h}}
+= f'({a_val:.2f})
+= {tan_slope:.4f}"""
+        )
+
 with col2:
     st.subheader("Current Values")
     st.write(f"Function: f(x) = {selected}")
     st.write(f"Point a: {a_val}")
     st.write(f"Value h: {h_val}")
-    y1 = safe_eval_function(func_input, a_val)
-    y2 = safe_eval_function(func_input, a_val + h_val)
 
     if y1 is not None and y2 is not None and h_val != 0:
-        sec = (y2 - y1) / h_val
-        st.write(f"Secant slope: {sec:.6f}")
-
+        st.write(f"Secant slope: {(y2 - y1)/h_val:.6f}")
     if y1 is not None:
         der = sympify(func_input).diff(symbols('x'))
         der_func = lambdify(symbols('x'), der, 'numpy')
-        ts = der_func(a_val)
-        st.write(f"Tangent slope: {ts:.6f}")
-
-    # vertical spacing before detailed calculations
-    st.write("")
-    st.write("")
-
-    # detailed secant calculation
-    if y1 is not None and y2 is not None and h_val != 0:
-        st.latex(
-            rf"""\frac{{f(a+h) - f(a)}}{{h}}
-= \frac{{f({a_val:.2f}+{h_val:.2f}) - f({a_val:.2f})}}{{{h_val:.2f}}}
-= \frac{{{y2:.4f} - {y1:.4f}}}{{{h_val:.2f}}}
-= {sec:.4f}"""
-        )
-
-    # detailed tangent calculation
-    if y1 is not None:
-        st.latex(
-            rf"""\lim_{{h \to 0}} \frac{{f(a+h) - f(a)}}{{h}}
-= f'({a_val:.2f})
-= {ts:.4f}"""
-        )
+        st.write(f"Tangent slope: {der_func(a_val):.6f}")
