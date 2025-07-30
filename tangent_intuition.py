@@ -26,8 +26,9 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     y_vals = func(x_vals)
 
     # Secant line infinite extension
-    y1 = safe_eval_function(func_str, a)
-    y2 = safe_eval_function(func_str, a + h)
+    x1, x2 = a, a + h
+    y1 = safe_eval_function(func_str, x1)
+    y2 = safe_eval_function(func_str, x2)
     sec_slope = None
     if y1 is not None and y2 is not None and h != 0:
         sec_slope = (y2 - y1) / h
@@ -52,22 +53,26 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     y_pad = 0.05 * (y_max - y_min) if y_max > y_min else 1
 
     fig, ax = plt.subplots(figsize=(8, 6))
-    sns.lineplot(x=x_vals, y=y_vals, ax=ax, label=f'f(x) = {func_str}', lw=2)
+    sns.lineplot(x=x_vals, y=y_vals, ax=ax, lw=2)
 
     if sec_slope is not None:
-        ax.plot(x_vals, y_sec, linestyle='--', linewidth=2, color='red',
-                label=f'Secant (slope={sec_slope:.4f})')
+        ax.plot(x_vals, y_sec, linestyle='--', linewidth=2, color='red')
+        ax.scatter([x1, x2], [y1, y2], color='red', s=50)
+        ax.annotate(f'({x1:.2f}, {y1:.4f})',
+                    xy=(x1, y1),
+                    xytext=(10, 10),
+                    textcoords='offset points',
+                    fontsize=14,
+                    arrowprops=dict(arrowstyle='->', lw=1))
+        ax.annotate(f'({x2:.2f}, {y2:.4f})',
+                    xy=(x2, y2),
+                    xytext=(10, -20),
+                    textcoords='offset points',
+                    fontsize=14,
+                    arrowprops=dict(arrowstyle='->', lw=1))
 
     if tan_slope is not None:
-        ax.plot(x_vals, y_tan, linewidth=2, color='green',
-                label=f'Tangent (slope={tan_slope:.4f})')
-
-    if y1 is not None:
-        ax.scatter([a], [y1], color='red', s=50)
-        ax.annotate(f'({a:.2f}, {y1:.4f})',
-                    xy=(a, y1),
-                    xytext=(a + 0.2, y1 + y_pad),
-                    arrowprops=dict(arrowstyle='->', lw=1))
+        ax.plot(x_vals, y_tan, linewidth=2, color='green')
 
     # Center axes
     ax.spines['left'].set_position('zero')
@@ -80,7 +85,7 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     ax.set_xlim(x_vals.min(), x_vals.max())
     ax.set_ylim(y_min - y_pad, y_max + y_pad)
     ax.grid(True, linestyle=':', color='lightgray')
-    ax.legend()
+
     return fig
 
 st.title("Dynamic Secant and Tangent Line Visualizer")
