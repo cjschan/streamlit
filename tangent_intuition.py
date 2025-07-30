@@ -21,11 +21,11 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     expr = sympify(func_str)
     func = lambdify(x, expr, 'numpy')
 
-    # Base x-range around a
+    # base x-range around a
     x_vals = np.linspace(a - 5, a + 5, 1000)
     y_vals = func(x_vals)
 
-    # Secant line (infinite extension)
+    # secant line infinite extension
     x1, x2 = a, a + h
     y1 = safe_eval_function(func_str, x1)
     y2 = safe_eval_function(func_str, x2)
@@ -34,7 +34,7 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
         sec_slope = (y2 - y1) / h
         y_sec = y1 + sec_slope * (x_vals - a)
 
-    # Tangent line (infinite extension)
+    # tangent line infinite extension
     tan_slope = None
     if show_tangent and y1 is not None:
         der = expr.diff(x)
@@ -42,7 +42,7 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
         tan_slope = der_func(a)
         y_tan = y1 + tan_slope * (x_vals - a)
 
-    # Determine dynamic y-limits
+    # determine dynamic y-limits
     all_y = [y_vals]
     if sec_slope is not None:
         all_y.append(y_sec)
@@ -55,48 +55,16 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.lineplot(x=x_vals, y=y_vals, ax=ax, lw=2)
 
-    # Plot secant line and points
+    # plot secant line and points
     if sec_slope is not None:
         ax.plot(x_vals, y_sec, linestyle='--', linewidth=2, color='red')
         ax.scatter([x1, x2], [y1, y2], color='red', s=50)
 
-        # Determine offsets to avoid covering important data
-        xlim = ax.get_xlim()
-        ylim = ax.get_ylim()
-        def offset(x_pt, y_pt):
-            dx = 12 if x_pt < sum(xlim)/2 else -12
-            dy = 12 if y_pt < sum(ylim)/2 else -12
-            return dx, dy
-
-        dx1, dy1 = offset(x1, y1)
-        dx2, dy2 = offset(x2, y2)
-
-        ax.annotate(
-            f'({x1:.2f}, {y1:.4f})',
-            xy=(x1, y1),
-            xytext=(dx1, dy1),
-            textcoords='offset points',
-            fontsize=14,
-            fontweight='bold',
-            bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3'),
-            arrowprops=None
-        )
-        ax.annotate(
-            f'({x2:.2f}, {y2:.4f})',
-            xy=(x2, y2),
-            xytext=(dx2, dy2),
-            textcoords='offset points',
-            fontsize=14,
-            fontweight='bold',
-            bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.3'),
-            arrowprops=None
-        )
-
-    # Plot tangent line if requested
+    # plot tangent line if requested
     if tan_slope is not None:
         ax.plot(x_vals, y_tan, linewidth=2, color='green')
 
-    # Center axes
+    # center axes
     ax.spines['left'].set_position('zero')
     ax.spines['bottom'].set_position('zero')
     ax.spines['right'].set_color('none')
