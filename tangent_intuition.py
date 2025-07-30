@@ -21,11 +21,11 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     expr = sympify(func_str)
     func = lambdify(x, expr, 'numpy')
 
-    # base x-range around a
+    # Base x‑range around a
     x_vals = np.linspace(a - 5, a + 5, 1000)
     y_vals = func(x_vals)
 
-    # secant line infinite extension
+    # Secant line (infinite extension)
     x1, x2 = a, a + h
     y1 = safe_eval_function(func_str, x1)
     y2 = safe_eval_function(func_str, x2)
@@ -34,19 +34,20 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
         sec_slope = (y2 - y1) / h
         y_sec = y1 + sec_slope * (x_vals - a)
 
-    # tangent line infinite extension
+    # Tangent line (infinite extension)
     tan_slope = None
-    if show_tangent and y1 is not None:
+    if y1 is not None:
         der = expr.diff(x)
         der_func = lambdify(x, der, 'numpy')
         tan_slope = der_func(a)
-        y_tan = y1 + tan_slope * (x_vals - a)
+        if show_tangent:
+            y_tan = y1 + tan_slope * (x_vals - a)
 
-    # determine dynamic y-limits
+    # Determine dynamic y‑limits
     all_y = [y_vals]
     if sec_slope is not None:
         all_y.append(y_sec)
-    if tan_slope is not None:
+    if tan_slope is not None and show_tangent:
         all_y.append(y_tan)
     ys = np.concatenate(all_y)
     y_min, y_max = ys.min(), ys.max()
@@ -55,16 +56,16 @@ def plot_function_with_secant_and_tangent(func_str, a, h, show_tangent):
     fig, ax = plt.subplots(figsize=(8, 6))
     sns.lineplot(x=x_vals, y=y_vals, ax=ax, lw=2)
 
-    # plot secant line and points
+    # Plot secant line and points
     if sec_slope is not None:
         ax.plot(x_vals, y_sec, linestyle='--', linewidth=2, color='red')
         ax.scatter([x1, x2], [y1, y2], color='red', s=50)
 
-    # plot tangent line if requested
-    if tan_slope is not None:
+    # Plot tangent line if requested
+    if tan_slope is not None and show_tangent:
         ax.plot(x_vals, y_tan, linewidth=2, color='green')
 
-    # center axes
+    # Center axes
     ax.spines['left'].set_position('zero')
     ax.spines['bottom'].set_position('zero')
     ax.spines['right'].set_color('none')
@@ -112,8 +113,8 @@ a_val = st.sidebar.number_input(
 h_val = st.sidebar.slider(
     "Value of h:",
     min_value=0.0,
-    max_value=1.0,
-    value=0.5,
+    max_value=2.0,
+    value=2.0,
     step=0.01,
     format="%.3f"
 )
@@ -130,12 +131,14 @@ with col2:
     st.write(f"Function: f(x) = {selected}")
     st.write(f"Point a: {a_val}")
     st.write(f"Value h: {h_val}")
+    # Secant slope
     y1 = safe_eval_function(func_input, a_val)
     y2 = safe_eval_function(func_input, a_val + h_val)
     if y1 is not None and y2 is not None and h_val != 0:
         sec = (y2 - y1) / h_val
         st.write(f"Secant slope: {sec:.6f}")
-    if show_tan and y1 is not None:
+    # Tangent slope
+    if y1 is not None:
         der = sympify(func_input).diff(symbols('x'))
         der_func = lambdify(symbols('x'), der, 'numpy')
         ts = der_func(a_val)
