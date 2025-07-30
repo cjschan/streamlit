@@ -22,7 +22,7 @@ def plot_function_with_secant(func_str, a, h):
     
     try:
         # Create x values for plotting
-        x_range = np.linspace(a - 2, a + h + 2, 1000)
+        x_range = np.linspace(-5, 5, 1000)
         
         # Evaluate function
         x = symbols('x')
@@ -76,8 +76,9 @@ def plot_function_with_secant(func_str, a, h):
         ax.set_ylabel('f(x)')
         ax.set_title(f'Function with Secant Line from x={a} to x={a+h:.3f}')
         
-        # Set reasonable axis limits
-        ax.set_xlim(a - 2, a + h + 2)
+        # Set fixed axis limits
+        ax.set_xlim(-5, 5)
+        ax.set_ylim(-5, 5)
         
     except Exception as e:
         ax.text(0.5, 0.5, f'Error plotting function:\n{str(e)}', 
