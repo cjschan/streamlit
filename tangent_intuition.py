@@ -154,18 +154,18 @@ st.sidebar.header("Parameters")
 
 # Function selection dropdown
 function_options = {
-    "x**2": r"$x^2$",
-    "x**3": r"$x^3$",
-    "sin(x)": r"$\sin(x)$",
-    "cos(x)": r"$\cos(x)$",
-    "exp(x)": r"$e^x$",
-    "log(x)": r"$\ln(x)$",
-    "sqrt(x)": r"$\sqrt{x}$",
-    "1/x": r"$\frac{1}{x}$",
-    "x**3 - 2*x": r"$x^3 - 2x$",
-    "x**2 - 4": r"$x^2 - 4$",
-    "2*x + 1": r"$2x + 1$",
-    "x**4 - x**2": r"$x^4 - x^2$"
+    "x**2": "x²",
+    "x**3": "x³",
+    "sin(x)": "sin(x)",
+    "cos(x)": "cos(x)",
+    "exp(x)": "eˣ",
+    "log(x)": "ln(x)",
+    "sqrt(x)": "√x",
+    "1/x": "1/x",
+    "x**3 - 2*x": "x³ - 2x",
+    "x**2 - 4": "x² - 4",
+    "2*x + 1": "2x + 1",
+    "x**4 - x**2": "x⁴ - x²"
 }
 
 selected_display = st.sidebar.selectbox(
