@@ -95,12 +95,31 @@ st.write("Visualize how secant lines change as h varies from a fixed point a.")
 # Sidebar for inputs
 st.sidebar.header("Parameters")
 
-# Function input
-func_input = st.sidebar.text_input(
-    "Enter function f(x):", 
-    value="x**2",
-    help="Use Python/SymPy syntax: x**2, sin(x), exp(x), log(x), etc."
+# Function selection dropdown
+function_options = {
+    "x**2": "x²",
+    "x**3": "x³", 
+    "sin(x)": "sin(x)",
+    "cos(x)": "cos(x)",
+    "exp(x)": "eˣ",
+    "log(x)": "ln(x)",
+    "sqrt(x)": "√x",
+    "1/x": "1/x",
+    "x**3 - 2*x": "x³ - 2x",
+    "x**2 - 4": "x² - 4",
+    "2*x + 1": "2x + 1",
+    "x**4 - x**2": "x⁴ - x²"
+}
+
+selected_display = st.sidebar.selectbox(
+    "Select function f(x):",
+    options=list(function_options.values()),
+    index=0,
+    help="Choose a function to visualize"
 )
+
+# Get the actual function string from the display name
+func_input = [k for k, v in function_options.items() if v == selected_display][0]
 
 # Point a input
 a_value = st.sidebar.number_input(
@@ -133,7 +152,7 @@ with col1:
 
 with col2:
     st.subheader("Current Values")
-    st.write(f"**Function:** f(x) = {func_input}")
+    st.write(f"**Function:** f(x) = {selected_display}")
     st.write(f"**Point a:** {a_value}")
     st.write(f"**Value h:** {h_value}")
     st.write(f"**Secant from:** x = {a_value} to x = {a_value + h_value:.3f}")
@@ -154,26 +173,31 @@ with col2:
         st.write("**Current slope:** Unable to calculate")
 
 # Information section
-with st.expander("How to use this app"):
+with st.expander("Available functions"):
     st.write("""
-    1. **Enter a function** in the sidebar using Python/SymPy syntax:
-       - Powers: `x**2`, `x**3`
-       - Trigonometric: `sin(x)`, `cos(x)`, `tan(x)`
-       - Exponential/Log: `exp(x)`, `log(x)`, `ln(x)`
-       - Square root: `sqrt(x)`
-       
-    2. **Set the point 'a'** where you want to start the secant line
+    The dropdown includes these pre-selected functions:
     
-    3. **Use the slider** to adjust 'h' and watch how the secant line changes
+    **Polynomial Functions:**
+    - x² (quadratic)
+    - x³ (cubic)
+    - x³ - 2x (cubic with linear term)
+    - x² - 4 (shifted parabola)
+    - x⁴ - x² (quartic)
+    - 2x + 1 (linear)
     
-    4. **Observe** how as h gets smaller, the secant line approaches the tangent line (derivative)
+    **Transcendental Functions:**
+    - sin(x) (sine wave)
+    - cos(x) (cosine wave)  
+    - eˣ (exponential)
+    - ln(x) (natural logarithm)
+    - √x (square root)
+    - 1/x (reciprocal/hyperbola)
     
-    **Example functions to try:**
-    - `x**2` (parabola)
-    - `sin(x)` (sine wave)
-    - `exp(x)` (exponential)
-    - `1/x` (hyperbola)
-    - `x**3 - 2*x + 1` (cubic polynomial)
+    **Instructions:**
+    1. Select a function from the dropdown
+    2. Set the point 'a' where you want to start the secant line
+    3. Use the slider to adjust 'h' and watch how the secant line changes
+    4. Observe how as h gets smaller, the secant line approaches the tangent line
     """)
 
 st.write("---")
