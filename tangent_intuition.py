@@ -146,7 +146,7 @@ def plot_function_with_secant(func_str, a, h):
         return fig
 
 # Streamlit App
-st.title("Dynamic Secant Line Visualizer")
+st.title("Visualizing Secant Lines and Tangent Lines")
 st.write("Visualize how secant lines change as h varies from a fixed point a.")
 
 # Sidebar for inputs
