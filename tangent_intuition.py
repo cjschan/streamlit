@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import sympy as sp
 from sympy import symbols, lambdify, sympify
 import warnings
@@ -17,8 +17,7 @@ def safe_eval_function(func_str, x_val):
         return None
 
 def plot_function_with_secant(func_str, a, h):
-    """Plot the function with secant line from x=a to x=a+h."""
-    fig, ax = plt.subplots(figsize=(10, 6))
+    """Plot the function with secant line from x=a to x=a+h using Plotly."""
     
     try:
         # Create x values for plotting
@@ -30,8 +29,17 @@ def plot_function_with_secant(func_str, a, h):
         func = lambdify(x, expr, 'numpy')
         y_range = func(x_range)
         
+        # Create plotly figure
+        fig = go.Figure()
+        
         # Plot the function
-        ax.plot(x_range, y_range, 'b-', linewidth=2, label=f'f(x) = {func_str}')
+        fig.add_trace(go.Scatter(
+            x=x_range, 
+            y=y_range, 
+            mode='lines', 
+            name=f'f(x) = {func_str}', 
+            line=dict(color='blue', width=3)
+        ))
         
         # Calculate points for secant line
         x1, x2 = a, a + h
@@ -40,53 +48,102 @@ def plot_function_with_secant(func_str, a, h):
         
         if y1 is not None and y2 is not None:
             # Plot points
-            ax.plot([x1, x2], [y1, y2], 'ro', markersize=8, label='Points')
+            fig.add_trace(go.Scatter(
+                x=[x1, x2], 
+                y=[y1, y2], 
+                mode='markers', 
+                name='Points', 
+                marker=dict(color='red', size=10)
+            ))
             
             # Calculate and plot secant line
             if h != 0:  # Avoid division by zero
                 slope = (y2 - y1) / h
                 # Extend secant line beyond the two points
-                x_secant = np.linspace(x1 - 1, x2 + 1, 100)
+                x_secant = np.linspace(-5, 5, 100)
                 y_secant = y1 + slope * (x_secant - x1)
-                ax.plot(x_secant, y_secant, 'r--', linewidth=2, 
-                       label=f'Secant line (slope = {slope:.4f})')
+                fig.add_trace(go.Scatter(
+                    x=x_secant, 
+                    y=y_secant, 
+                    mode='lines', 
+                    name=f'Secant line (slope = {slope:.4f})',
+                    line=dict(color='red', width=2, dash='dash')
+                ))
                 
-                # Add slope annotation
-                mid_x = (x1 + x2) / 2
-                mid_y = (y1 + y2) / 2
-                ax.annotate(f'Slope = {slope:.4f}', 
-                           xy=(mid_x, mid_y), xytext=(10, 10),
-                           textcoords='offset points',
-                           bbox=dict(boxstyle='round,pad=0.3', facecolor='yellow', alpha=0.7),
-                           arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
-            
-            # Add point labels
-            ax.annotate(f'({x1:.2f}, {y1:.4f})', 
-                       xy=(x1, y1), xytext=(10, 10),
-                       textcoords='offset points',
-                       bbox=dict(boxstyle='round,pad=0.3', facecolor='lightblue', alpha=0.7))
-            ax.annotate(f'({x2:.2f}, {y2:.4f})', 
-                       xy=(x2, y2), xytext=(10, -20),
-                       textcoords='offset points',
-                       bbox=dict(boxstyle='round,pad=0.3', facecolor='lightblue', alpha=0.7))
+                # Add annotations for points
+                fig.add_annotation(
+                    x=x1, y=y1,
+                    text=f'({x1:.2f}, {y1:.4f})',
+                    showarrow=True,
+                    arrowhead=2,
+                    arrowcolor='blue',
+                    bgcolor='lightblue',
+                    bordercolor='blue'
+                )
+                
+                fig.add_annotation(
+                    x=x2, y=y2,
+                    text=f'({x2:.2f}, {y2:.4f})',
+                    showarrow=True,
+                    arrowhead=2,
+                    arrowcolor='blue',
+                    bgcolor='lightblue',
+                    bordercolor='blue'
+                )
         
-        ax.grid(True, alpha=0.3)
-        ax.legend()
-        ax.set_xlabel('x')
-        ax.set_ylabel('f(x)')
-        ax.set_title(f'Function with Secant Line from x={a} to x={a+h:.3f}')
+        # Configure layout with solid axes
+        fig.update_layout(
+            title=f'Function with Secant Line from x={a} to x={a+h:.3f}',
+            xaxis=dict(
+                title='x',
+                range=[-5, 5],
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='lightgray',
+                zeroline=True,
+                zerolinewidth=2,
+                zerolinecolor='black',
+                showline=True,
+                linewidth=2,
+                linecolor='black'
+            ),
+            yaxis=dict(
+                title='y',
+                range=[-5, 5],
+                showgrid=True,
+                gridwidth=1,
+                gridcolor='lightgray',
+                zeroline=True,
+                zerolinewidth=2,
+                zerolinecolor='black',
+                showline=True,
+                linewidth=2,
+                linecolor='black'
+            ),
+            showlegend=True,
+            width=800,
+            height=600,
+            plot_bgcolor='white'
+        )
         
-        # Set fixed axis limits
-        ax.set_xlim(-5, 5)
-        ax.set_ylim(-5, 5)
+        return fig
         
     except Exception as e:
-        ax.text(0.5, 0.5, f'Error plotting function:\n{str(e)}', 
-                transform=ax.transAxes, ha='center', va='center',
-                fontsize=12, bbox=dict(boxstyle='round', facecolor='red', alpha=0.1))
-        ax.set_title('Error in Function')
-    
-    return fig
+        # Create error figure
+        fig = go.Figure()
+        fig.add_annotation(
+            text=f'Error plotting function: {str(e)}', 
+            xref="paper", yref="paper", 
+            x=0.5, y=0.5, 
+            showarrow=False,
+            font=dict(size=16, color='red')
+        )
+        fig.update_layout(
+            title='Error in Function',
+            xaxis=dict(title='x', range=[-5, 5]),
+            yaxis=dict(title='y', range=[-5, 5])
+        )
+        return fig
 
 # Streamlit App
 st.title("Dynamic Secant Line Visualizer")
@@ -146,9 +203,9 @@ with col1:
     # Plot the function with secant line
     if func_input:
         fig = plot_function_with_secant(func_input, a_value, h_value)
-        st.pyplot(fig)
+        st.plotly_chart(fig, use_container_width=True)
     else:
-        st.warning("Please enter a function to visualize.")
+        st.warning("Please select a function to visualize.")
 
 with col2:
     st.subheader("Current Values")
